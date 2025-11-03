@@ -6,5 +6,5 @@ soundfile
 tqdm
 huggingface_hub
 torchaudio
-torchvisio
+torchvision
 nemo_toolkit[all]==2.4.0
