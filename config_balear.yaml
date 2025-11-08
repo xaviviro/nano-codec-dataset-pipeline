@@ -1,0 +1,36 @@
+base_settings:
+  audio_codec: nvidia/nemo-nano-codec-22khz-0.6kbps-12.5fps
+  num_readers: 8
+  qsize: 100000
+  OUT_DIR: shards
+  gzip_level: 1
+  buffer_size: 16777216
+  lines_per_file: 50000
+  load_dataset_num_proc: 20
+
+save_settings:
+  local: balear_tts_dataset                    # dataset dir
+  hf_upload: xaviviro/kanitts-balear-tokenized  # HF repo for tokenized dataset
+
+hf_datasets:
+
+  # Common Voice 19 Balear dataset
+  - name: xaviviro/cv_19_balear
+    sub_name: null                # No subset
+    split: train                  # Use train split
+    text_column_name: sentence    # Column name for text
+    audio_column_name: path       # Column name for audio (will be cast to Audio feature)
+    speaker_column_name: null     # No speaker column in this dataset
+    add_constant:                 # Add metadata to each sample
+      - key: speaker
+        value: balear_cv19
+      - key: lang
+        value: ca-balear
+      - key: source
+        value: common_voice_19
+
+  # Notes:
+  # - The 'path' column will be automatically cast to Audio feature with sampling_rate=24000
+  # - NanoCodec expects 22kHz, so resampling will happen automatically
+  # - The dataset has ~X samples from Common Voice 19
+  # - Duration filtering happens during fine-tuning (max_duration_sec in dataset_config.yaml)
