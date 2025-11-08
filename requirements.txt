@@ -1,9 +1,10 @@
 omegaconf
 numpy
 datasets==3.6.0
-torch
 librosa
 soundfile
 tqdm
 huggingface_hub
+torchaudio
+torchvision
 nemo_toolkit[all]==2.4.0
